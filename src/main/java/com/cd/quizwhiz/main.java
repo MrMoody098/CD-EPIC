@@ -9,12 +9,16 @@ import java.io.IOException;
 
 public class main {
     public static void main(String[] args) throws Exception {
-       String user11= Auth.register("jonny","1233");
-        System.out.println(user11);
-        User user1 = new User(user11);
+        User user1 = new User("jowwnn3y");
+        user1.AddScore();
+        user1.AddScore();
+        user1.AddScore();
+        user1.AddScore();
+        System.out.println(user1.currentScore);
+        user1.FinalScore();
         System.out.println(Auth.login("jonny","1233"));
         int count = 1;
-        for(String[] i:Leaderboard.getLeaderboard("user1",8)) {
+        for(String[] i:Leaderboard.getLeaderboard("user1",0)) {
             System.out.println(count+": "+i[0]+"-"+i[1]);
             count++;
         }

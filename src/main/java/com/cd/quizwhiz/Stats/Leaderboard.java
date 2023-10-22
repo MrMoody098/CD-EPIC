@@ -2,6 +2,7 @@ package com.cd.quizwhiz.Stats;
 
 // Import necessary Java libraries
 import com.cd.quizwhiz.UserStuff.Auth;
+import com.cd.quizwhiz.UserStuff.User;
 
 import java.io.*;
 import java.nio.file.*;

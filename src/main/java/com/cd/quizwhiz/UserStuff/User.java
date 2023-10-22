@@ -10,7 +10,7 @@ public class User
 {
     //declare variables to store user data
     String username;
-    int currentScore;
+    public int currentScore;
 
     //intizilization method takes in an String argument username
     public User(String username)
