@@ -1,0 +1,19 @@
+Question,Options,CorrectOption,Category,Difficulty
+"In computer science, what is the binary number system based on?","Base 2,Base 10,Base 8,Base 32",0,DiscreteMaths,novice
+"Which logical operator returns true if both of its operands are true?","AND,OR,NOT,XOR",0,DiscreteMaths,novice
+"What is the purpose of Big O notation in computer science?","To denote the largest number in a dataset,To analyse the efficiency of algorithms,To represent binary numbers in a compact form,To categorize data types",1,DiscreteMaths,intermediate
+"Surjectivity means that ...?","... every element in the codomain has at most one element in the domain that maps to it,... every element in codomain has exactly one element in the domain that maps to it,... every element in the codomain has at least one element in the domain that maps to it,... every element in the domain maps onto at most one element in the codomain",2,DiscreteMaths,intermediate
+"Under which of the following conditions is the inverse of a matrix NOT defined?","If it is an identity matrix,The determinant is negative,The sum of its elements is zero,The determinant is zero",3,DiscreteMaths,expert
+"What is the maximum number of walks of length 3 that may be present on a graph composed of 5 nodes?","5,15,25,125",2,DiscreteMaths,expert
+"Backus-Naur Form describes the ___ of a language","semantics,syntax,noun-verb order,complexity",1,ComputerSci,novice
+"A lattice contained entirely within another lattice is called a:","sublattice,semilattice,sup-semilattice,order homomorphism",0,ComputerSci,novice
+"A Binary Decision Diagram is a special kind of:","weighted acyclic graph,directed acyclic graph,weighted directed graph,undirected weighted graph",1,ComputerSci,intermediate
+"Which of the following is NOT a step in forming an ROBDD from a binary tree?","merging isomorphic decision nodes,substituting equivalent variables,removing duplicate terminal nodes,eliminating redundant tests",1,ComputerSci,intermediate
+"If a relation is reflexive, symmetric, and transitive, it is:","a partial order,a total order,an equivilance relation,an empty relation",2,ComputerSci,expert
+"which of the following partial orders is NOT a lattice?","(ℕ, |),(ℕ - {1}, |),(ℤ, ≤),(P(ℕ), ⊆)",1,ComputerSci,expert
+"What does CPU stand for?","Computer Personal Unit,Central Process Unidiagram,Centralized Program Unit,Central Processing Unit",3,ComputerOrg,novice
+"Which component of a computer stores data long-term?","RAM,CPU,Hard Drive,GPU",2,ComputerOrg,novice
+"What does the acronym GPU stand for?","General Processing Unit,Graphics Performance Unit,Graphical Processing Unit,General Purpose Unit",2,ComputerOrg,intermediate
+"What is the purpose of a motherboard in a computer?","To display images on the screen,To process data,To connect and communicate with hardware componenets,To store files and documents",2,ComputerOrg,intermediate
+"What is pipelining in computer architecture?","A technique used in parallel computing to process multiple tasks simultaneously,A method for cooling computer components,A form of memory storage,A technique for creating computer viruses",0,ComputerOrg,expert
+"To reduce the memory access time we generally make use of ______","SDRAMs,Heaps,Caches,Higher capacity RAMs",2,ComputerOrg,expert

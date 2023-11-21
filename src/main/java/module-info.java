@@ -7,6 +7,7 @@ module com.cd.quizwhiz {
     requires thymeleaf;
     requires java.sql; // dependency of thymeleaf not correctly imported otherwise
     requires org.slf4j;
+    requires com.opencsv;
 
     exports com.cd.quizwhiz;
     exports com.cd.quizwhiz.questions;

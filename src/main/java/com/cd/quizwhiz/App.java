@@ -17,4 +17,5 @@ public class App extends Application {
         new UI<AppState>(primaryStage, new AppState())
                 .loadPage(new HomePage());
     }
+
 }

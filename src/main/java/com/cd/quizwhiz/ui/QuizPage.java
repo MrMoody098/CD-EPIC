@@ -36,6 +36,10 @@ public class QuizPage extends UIPage<AppState> {
     }
 
     protected void loadQuestion(UI<AppState> ui, Question question) {
+        if (questionsToAsk.length == 0) {
+            // Handle the case where there are no questions
+            return;
+        }
         this.answerLocked = false;
         ui.setElementText("question-text", question.getQuestion());
 

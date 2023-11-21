@@ -5,6 +5,8 @@ import java.io.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static com.cd.quizwhiz.userstuff.PasswordEncryption.verifyPassword;
+
 /**
  * The Auth class handles user registration and login
  * for a quiz application. It allows users to register
@@ -90,7 +92,7 @@ public class Auth {
             if (line != null) {
                 String storedPassword = line;
                 // Check if the provided password matches the stored password.
-                if (password.equals(PasswordEncryption.decrypt(storedPassword))) {
+                if (verifyPassword(password, storedPassword)) {
                     loggedIn = true;
                 }
             }

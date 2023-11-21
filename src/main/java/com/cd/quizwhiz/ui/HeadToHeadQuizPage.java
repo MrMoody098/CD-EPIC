@@ -11,7 +11,7 @@ public class HeadToHeadQuizPage extends QuizPage {
     public HeadToHeadQuizPage(Question[] questionsToAsk) {
         super(questionsToAsk);
 
-        // Override our superclass' instansiation of this - 
+        // Override our superclass' instantiation of this -
         // we want to go to HeadToHeadStatsPage afterwards, not StatsPage
         this.statsPage = new HeadToHeadStatsPage();
         this.currentPlayer = new Switcher();
