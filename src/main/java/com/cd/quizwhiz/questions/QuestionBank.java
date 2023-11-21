@@ -22,7 +22,7 @@ public class QuestionBank {
             String[] line;
             while ((line = csvReader.readNext()) != null) {
                 String questionText = line[0].replace("\"", "");
-                String[] options = line[1].split(";");
+                String[] options = line[1].split(",");
                 int correctOption = Integer.parseInt(line[2]);
                 Category category = Category.valueOf(line[3]);
                 Difficulty difficulty = Difficulty.valueOf(line[4]);
