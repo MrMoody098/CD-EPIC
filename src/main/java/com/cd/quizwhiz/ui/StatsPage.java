@@ -12,67 +12,70 @@ import com.cd.quizwhiz.uiframework.UI;
 import com.cd.quizwhiz.uiframework.UIPage;
 import com.cd.quizwhiz.userstuff.User;
 
-public class StatsPage extends UIPage<AppState> {
-    private static final Logger logger = LoggerFactory.getLogger(StatsPage.class);
+public class StatsPage extends UIPage<AppState>{
+    /*REFACTORING
+    Removed redundant comments.
 
-    private final boolean justFinishedQuiz;
+    Used array initializer syntax for scoreMessages.
 
-    private static final String[] scoreMessages = new String[] {
-            "keep trying - you got this",
-            "keep trying - you got this",
-            "you're getting it!",
-            "you're getting it!",
-            "impressive!",
-            "impressive!",
-            "you nailed it!"
-    };
+    Simplified the leaderboard retrieval based on the justFinishedQuiz flag.
+    
+    Applied a more consistent coding style.
+    */
+        private static final Logger logger = LoggerFactory.getLogger(StatsPage.class);
 
-    public StatsPage(boolean justFinishedQuiz) {
-        super("stats");
-        this.justFinishedQuiz = justFinishedQuiz;
-    }
+        private final boolean justFinishedQuiz;
 
-    public StatsPage() {
-        this(false);
-    }
+        private static final String[] scoreMessages = {
+                "keep trying - you got this",
+                "keep trying - you got this",
+                "you're getting it!",
+                "you're getting it!",
+                "impressive!",
+                "impressive!",
+                "you nailed it!"
+        };
 
-    @Override
-    public boolean onPreload(UI<AppState> ui) {
-        Context context = ui.getContext();
-        User user = ui.getState().user;
-
-        context.setVariable("justFinishedQuiz", this.justFinishedQuiz);
-        context.setVariable("user", user);
-
-        if (justFinishedQuiz) {
-            int finalScore = user.finalScore();
-
-            context.setVariable("score", finalScore);
-            context.setVariable("scoreMessage", scoreMessages[finalScore]);
+        public StatsPage(boolean justFinishedQuiz) {
+            super("stats");
+            this.justFinishedQuiz = justFinishedQuiz;
         }
 
-        // Leaderboard
-        try {
-            String[][] leaderboard;
+        public StatsPage() {
+            this(false);
+        }
 
-            // If we've just finished a quiz: we want to show the user not only their maximum score
-            // but also the score of the game they've just finished
-            if (this.justFinishedQuiz) {
-                leaderboard = Leaderboard.getLeaderboard(user.getUsername(), user.finalScore());
-            } else {
-                leaderboard = Leaderboard.getLeaderboard();
+        @Override
+        public boolean onPreload(UI<AppState> ui) {
+            Context context = ui.getContext();
+            User user = ui.getState().user;
+
+            context.setVariable("justFinishedQuiz", justFinishedQuiz);
+            context.setVariable("user", user);
+
+            if (justFinishedQuiz) {
+                int finalScore = user.finalScore();
+                context.setVariable("score", finalScore);
+                context.setVariable("scoreMessage", scoreMessages[finalScore]);
             }
 
-            context.setVariable("leaderboard", leaderboard);
-        } catch (IOException e) {
-            logger.error("Error while creating leaderboard: {}", e);
+            // Leaderboard
+            try {
+                String[][] leaderboard = justFinishedQuiz ?
+                        Leaderboard.getLeaderboard(user.getUsername(), user.finalScore()) :
+                        Leaderboard.getLeaderboard();
+
+                context.setVariable("leaderboard", leaderboard);
+            } catch (IOException e) {
+                logger.error("Error while creating leaderboard: {}", e);
+            }
+
+            return true;
         }
 
-        return true;
-    }
+        @UIEventListener(type = "click", id = "back-link")
+        public void onBackLinkClick(UI<AppState> ui) {
+            ui.loadPage(new HomePage());
+        }
 
-    @UIEventListener(type = "click", id = "back-link")
-    public void onBackLinkClick(UI<AppState> ui) {
-        ui.loadPage(new HomePage());
-    }
 }

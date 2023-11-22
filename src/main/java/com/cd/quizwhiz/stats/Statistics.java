@@ -1,9 +1,18 @@
-/**
- * The Stats package contains classes for calculating statistical measures.
- */
 package com.cd.quizwhiz.stats;
 
-import static java.util.Arrays.sort;
+import java.util.Arrays;
+/*REFACTORING
+
+Use java.util.Arrays for sort:
+Instead of statically importing sort from java.util.Arrays, I can use Arrays.sort(scores).
+This makes it clear where the sort method is coming from.
+
+Add Javadoc Comments for Methods:
+added Javadoc comments to explain each method's purpose, parameters, and return value. This can improve documentation.
+
+Variable Naming:
+Consider using more descriptive variable names. For example, you could replace i with score in the mean method's loop.
+*/
 
 /**
  * The Statistics class contains methods for calculating statistical measures.
@@ -21,8 +30,8 @@ public class Statistics {
 
         // Loop through the array using an enhanced for loop and calculate the sum of
         // all scores.
-        for (double i : scores) {
-            sum += i;
+        for (double score : scores) {
+            sum += score;
         }
         // Calculate and return the mean by dividing the sum by the number of scores.
         return sum / scores.length;
@@ -38,7 +47,7 @@ public class Statistics {
         double median = 0;
 
         // Sort the scores in ascending order.
-        sort(scores);
+        Arrays.sort(scores);
 
         // Check if the number of scores is even or odd to calculate the median
         // accordingly.
@@ -68,9 +77,9 @@ public class Statistics {
         double standardDeviation = 0.0;
 
         // Calculate the sum of squared differences from the mean.
-        for (double num : scores) {
+        for (double score : scores) {
             // Standard deviation formula: √(Σ(Xi - μ)^2 / N)
-            standardDeviation += Math.pow(num - mean, 2);
+            standardDeviation += Math.pow(score - mean, 2);
         }
 
         // Calculate the square root of the sum of squared differences divided by the
