@@ -8,7 +8,8 @@ module com.cd.quizwhiz {
     requires java.sql; // dependency of thymeleaf not correctly imported otherwise
     requires org.slf4j;
     requires com.opencsv;
-
+    requires firebase.admin;
+    requires com.google.auth.oauth2;
     exports com.cd.quizwhiz;
     exports com.cd.quizwhiz.questions;
     exports com.cd.quizwhiz.userstuff;

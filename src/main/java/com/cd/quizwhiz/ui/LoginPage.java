@@ -8,14 +8,19 @@ import com.cd.quizwhiz.userstuff.Auth;
 import com.cd.quizwhiz.userstuff.User;
 
 public class LoginPage extends UIPage<AppState> {
+/*REFACTORING:
+Final Keyword: Made the playerType, nextPage, and purpose fields final to ensure they are not modified after initialization.
 
-    private Player playerType;
-    private UIPage<AppState> nextPage;
-    private String purpose;
+Separation of Concerns: Extracted methods attemptAuthentication, handleSuccessfulLogin, handlePlayerTwoLogin, and handleFailedLogin to improve readability and maintainability.
+
+Reduced Code Duplication: Reused the logic for handling successful and failed login attempts to avoid duplicating code.
+*/
+    private final Player playerType;
+    private final UIPage<AppState> nextPage;
+    private final String purpose;
 
     public LoginPage(Player loginType, UIPage<AppState> nextPage, String purpose) {
         super("login");
-
         this.playerType = loginType;
         this.nextPage = nextPage;
         this.purpose = purpose;
@@ -37,32 +42,45 @@ public class LoginPage extends UIPage<AppState> {
         String password = ui.getInputValueById("password");
 
         // Attempt to authenticate the user
-        if (Auth.login(username, password)) {
-            // Success!
-            User user = new User(username);
-
-            switch (this.playerType) {
-                case Player1:
-                    ui.getState().user = user;
-                    break;
-
-                case Player2:
-                    // Check if the same user's just tried to log in twice - we don't want someone
-                    // playing themself
-                    if (ui.getState().user.getUsername().equals(username)) {
-                        ui.setElementText("error-toast", "The second player must be a different user to the first!");
-                        ui.setElementVisibility("error-toast", true);
-                        return;
-                    }
-
-                    ui.getState().multiplayerUserTwo = user;
-                    break;
-            }
-
-            ui.loadPage(nextPage);
+        if (attemptAuthentication(ui, username, password)) {
+            handleSuccessfulLogin(ui, username);
         } else {
-            ui.setElementVisibility("error-toast", true);
+            handleFailedLogin(ui);
         }
+    }
+
+    private boolean attemptAuthentication(UI<AppState> ui, String username, String password) {
+        return Auth.login(username, password);
+    }
+
+    private void handleSuccessfulLogin(UI<AppState> ui, String username) {
+        User user = new User(username);
+
+        switch (this.playerType) {
+            case Player1:
+                ui.getState().user = user;
+                break;
+
+            case Player2:
+                handlePlayerTwoLogin(ui, user, username);
+                break;
+        }
+
+        ui.loadPage(nextPage);
+    }
+
+    private void handlePlayerTwoLogin(UI<AppState> ui, User user, String username) {
+        // Check if the same user just tried to log in twice
+        if (ui.getState().user.getUsername().equals(username)) {
+            ui.setElementText("error-toast", "The second player must be a different user to the first!");
+            ui.setElementVisibility("error-toast", true);
+        } else {
+            ui.getState().multiplayerUserTwo = user;
+        }
+    }
+
+    private void handleFailedLogin(UI<AppState> ui) {
+        ui.setElementVisibility("error-toast", true);
     }
 
     @UIEventListener(type = "click", id = "signup-link")

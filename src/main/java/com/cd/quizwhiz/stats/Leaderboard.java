@@ -28,7 +28,7 @@ public class Leaderboard {
      */
     public static String[][] getLeaderboard() throws IOException {
         // Define the directory path
-        String dir = Auth.userFolder;
+        String dir = Auth.USER_FOLDER;
 
         // Initialize an ArrayList to store the leaderboard data
         List<String[]> leaderboardList = new ArrayList<>();
@@ -88,7 +88,7 @@ public class Leaderboard {
     public static String[][] getLeaderboard(String currentUsername, int currentScore) throws IOException {
 
         // Define the directory path
-        String dir = Auth.userFolder;
+        String dir = Auth.USER_FOLDER;
 
         // Initialize an ArrayList to store the leaderboard data
         List<String[]> leaderboardList = new ArrayList<>();
@@ -167,7 +167,7 @@ public class Leaderboard {
             int currentScore2) throws IOException {
 
         // Define the directory path
-        String dir = Auth.userFolder;
+        String dir = Auth.USER_FOLDER;
 
         // Initialize an ArrayList to store the leaderboard data
         List<String[]> leaderboardList = new ArrayList<>();

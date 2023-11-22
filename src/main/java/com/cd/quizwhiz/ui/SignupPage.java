@@ -7,14 +7,22 @@ import com.cd.quizwhiz.uiframework.UIPage;
 import com.cd.quizwhiz.userstuff.Auth;
 import com.cd.quizwhiz.userstuff.User;
 
+/*REFACTORING:
+ Final Keyword: Made the playerType, nextPage, and purpose fields final to ensure they are not modified after initialization.
+
+ Separation of Concerns: Extracted methods handleSuccessfulRegistration and handleFailedRegistration to improve readability and maintainability.
+
+ Reduced Code Duplication: Reused the registration status check and handling logic to avoid duplicating code.
+ */
+
+
 public class SignupPage extends UIPage<AppState> {
-    private Player playerType;
-    private UIPage<AppState> nextPage;
-    private String purpose;
+    private final Player playerType;
+    private final UIPage<AppState> nextPage;
+    private final String purpose;
 
     public SignupPage(Player playerType, UIPage<AppState> nextPage, String purpose) {
         super("signup");
-
         this.playerType = playerType;
         this.nextPage = nextPage;
         this.purpose = purpose;
@@ -25,7 +33,7 @@ public class SignupPage extends UIPage<AppState> {
     }
 
     @Override
-    public boolean onPreload(UI<AppState> ui) { 
+    public boolean onPreload(UI<AppState> ui) {
         ui.getContext().setVariable("purpose", this.purpose);
         return true;
     }
@@ -37,25 +45,29 @@ public class SignupPage extends UIPage<AppState> {
 
         String registrationStatus = Auth.register(username, password);
 
-        // Auth.register returns the user's username on success
-        // and a failure message otherwise.
         if (registrationStatus.equals(username)) {
-            User user = new User(username);
+            handleSuccessfulRegistration(ui, username);
+        } else {
+            handleFailedRegistration(ui, registrationStatus);
+        }
+    }
 
-            switch (this.playerType) {
-                case Player1:
-                    ui.getState().user = user;
-                    break;
-                case Player2:
-                    ui.getState().multiplayerUserTwo = user;
-                    break;
-            }
+    private void handleSuccessfulRegistration(UI<AppState> ui, String username) {
+        User user = new User(username);
 
-            ui.loadPage(nextPage);
-            return;
+        switch (this.playerType) {
+            case Player1:
+                ui.getState().user = user;
+                break;
+            case Player2:
+                ui.getState().multiplayerUserTwo = user;
+                break;
         }
 
-        // error :(
+        ui.loadPage(nextPage);
+    }
+
+    private void handleFailedRegistration(UI<AppState> ui, String registrationStatus) {
         ui.setElementText("error-toast", registrationStatus);
         ui.setElementVisibility("error-toast", true);
     }
@@ -64,5 +76,4 @@ public class SignupPage extends UIPage<AppState> {
     public void onSignupLinkClick(UI<AppState> ui) {
         ui.loadPage(new LoginPage(this.playerType, this.nextPage, this.purpose));
     }
-
 }
